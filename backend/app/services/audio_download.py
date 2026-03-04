@@ -20,19 +20,8 @@ def download_audio(video_id: str, url: str | None = None) -> str:
         "outtmpl": out_path,
         "quiet": True,
         "no_warnings": True,
-        "extract_audio": False,
-        # Reduce bot detection: use mobile client + browser-like headers
-        "extractor_args": {"youtube": {"player_client": ["android", "tv_embedded", "web"]}},
-        "http_headers": {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept-Language": "en-US,en;q=0.9",
-        },
+        "extract_audio": False,  # Get raw audio stream, no FFmpeg needed
     }
-
-    # Optional: use cookies file if provided (helps with bot detection)
-    cookies_path = os.getenv("YT_DLP_COOKIES")
-    if cookies_path and os.path.isfile(cookies_path):
-        ydl_opts["cookiefile"] = cookies_path
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(video_url, download=True)
