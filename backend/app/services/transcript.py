@@ -36,9 +36,15 @@ def get_transcript(video_id: str, url: str | None = None) -> tuple[list[dict], s
     Tries youtube-transcript-api first; on failure, downloads audio and uses Whisper.
     Returns (segments, full_text, source) where source is "youtube" or "whisper".
     """
-    # 1. Try YouTube captions first
+    # 1. Try YouTube captions first (cookies help with bot detection)
+    cookies_path = os.getenv("YT_DLP_COOKIES")
+    cookies = cookies_path if cookies_path and os.path.isfile(cookies_path) else None
     try:
-        transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
+        transcript_list = (
+            YouTubeTranscriptApi.get_transcript(video_id, cookies=cookies)
+            if cookies
+            else YouTubeTranscriptApi.get_transcript(video_id)
+        )
         segments = [
             {"start": s["start"], "duration": s["duration"], "text": s["text"]}
             for s in transcript_list
