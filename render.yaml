@@ -1,0 +1,12 @@
+# Render.com deployment config
+# Deploy: Connect repo at render.com, create Web Service, use Docker
+# Set OPENAI_API_KEY in Environment
+services:
+  - type: web
+    name: youtube-video-summary
+    env: docker
+    region: oregon
+
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false  # Set in Render dashboard

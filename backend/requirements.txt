@@ -1,0 +1,11 @@
+# Requires Python 3.11 or 3.12 (3.14 lacks pydantic-core wheels)
+fastapi==0.109.2
+uvicorn[standard]==0.27.1
+python-multipart==0.0.9
+youtube-transcript-api==0.6.2
+yt-dlp>=2024.1.0
+openai==1.12.0
+pydantic==2.6.1
+pydantic-settings==2.1.0
+python-dotenv==1.0.1
+httpx==0.26.0
