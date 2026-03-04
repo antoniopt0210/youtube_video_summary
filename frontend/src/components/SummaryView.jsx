@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 export default function SummaryView({ data }) {
-  const { video_id, embed_url, summary, transcript_source } = data;
+  const { video_id, embed_url, summary, keywords, entities, transcript_source } = data;
 
   return (
     <div className="space-y-8">
@@ -76,6 +76,49 @@ export default function SummaryView({ data }) {
           </div>
         </motion.section>
       )}
+
+      {/* NLP: Keywords & Entities */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="grid gap-4 sm:grid-cols-2"
+      >
+        {keywords?.length > 0 && (
+          <div className="rounded-xl border border-slate-700/50 bg-slate-900/50 p-6">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-400">
+              NLP Keywords
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {keywords.map((kw, i) => (
+                <span
+                  key={i}
+                  className="rounded-md bg-brand-500/20 px-2 py-1 text-sm text-brand-400"
+                >
+                  {kw}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        {entities?.length > 0 && (
+          <div className="rounded-xl border border-slate-700/50 bg-slate-900/50 p-6">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-400">
+              Entities
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {entities.map((e, i) => (
+                <span
+                  key={i}
+                  className="rounded-md bg-slate-700/50 px-2 py-1 text-sm text-slate-300"
+                >
+                  {e}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </motion.section>
     </div>
   );
 }
