@@ -60,9 +60,13 @@ def get_transcript(video_id: str, url: str | None = None) -> tuple[list[dict], s
         audio_path = download_audio(video_id, video_url)
         full_text = transcribe_audio_file(audio_path)
     except Exception as e:
-        raise ValueError(
-            f"Transcript fetch failed and Whisper fallback failed: {str(e)}"
-        )
+        err = str(e)
+        if "Sign in to confirm" in err or "bot" in err.lower() or "cookies" in err.lower():
+            raise ValueError(
+                "YouTube is blocking this request. To fix: set YT_DLP_COOKIES in .env to the path of a cookies.txt file "
+                "(export from browser while logged into YouTube). See https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp"
+            )
+        raise ValueError(f"Transcript fetch failed and Whisper fallback failed: {err}")
     finally:
         if audio_path and os.path.exists(audio_path):
             try:
