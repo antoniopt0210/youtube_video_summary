@@ -1,6 +1,6 @@
 # YouTube Video Summary [(click for demo)](https://youtube-video-summary-pjnw.onrender.com)
 
-A web app that summarizes YouTube videos with AI. Paste a URL to get a summary, key points, chapters, and chat about the video via text or voice.
+A web app that summarizes YouTube videos (English only) with AI. Paste a URL to get a summary, key points, chapters, and chat about the video via text or voice.
 
 ![Tech Stack](https://img.shields.io/badge/GenAI-LLM%20%7C%20NLP%20%7C%20Voice-orange)
 
