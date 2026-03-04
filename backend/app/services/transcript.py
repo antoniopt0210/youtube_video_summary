@@ -60,8 +60,13 @@ def get_transcript(video_id: str, url: str | None = None) -> tuple[list[dict], s
         audio_path = download_audio(video_id, video_url)
         full_text = transcribe_audio_file(audio_path)
     except Exception as e:
+        err = str(e)
+        if "Sign in to confirm" in err or "bot" in err.lower() or "cookies" in err.lower():
+            raise ValueError(
+                "This video couldn't be processed (YouTube restriction). Try a video with captions, or a different video."
+            )
         raise ValueError(
-            f"Transcript fetch failed and Whisper fallback failed: {str(e)}"
+            f"Transcript fetch failed and Whisper fallback failed: {err}"
         )
     finally:
         if audio_path and os.path.exists(audio_path):

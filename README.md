@@ -54,6 +54,7 @@ Visit **http://localhost:5173** and paste a YouTube URL.
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `OPENAI_API_KEY` | Yes | For GPT-4 summarization, chat, and Whisper transcription |
+| `YT_DLP_COOKIES` | No | Path to a cookies file (Netscape format) to reduce YouTube bot blocks. [Export guide](https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp) |
 
 ## API Endpoints
 
